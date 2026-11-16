@@ -28,6 +28,18 @@
   .art svg { width:370px; height:800px; display:block; }
   .hs { position:absolute; display:block; border-radius:10px; cursor:pointer; }
   .hs:hover { background:rgba(62,156,110,.10); outline:1px dashed rgba(62,156,110,.55); }
+  @media (max-width: 900px) {
+    body { display:block; overflow-x:hidden; }
+    .side { display:none; }
+    .stage { padding:0; height:100vh; }
+    .phone { transform-origin: top center; }
+    .dock { position:fixed; left:50%; bottom:12px; transform:translateX(-50%);
+             display:flex; gap:9px; z-index:99; padding:8px 12px; border-radius:999px;
+             background:rgba(10,18,16,.62); backdrop-filter:blur(6px); }
+    .dock i { width:8px; height:8px; border-radius:99px; background:#6b7f75;
+               display:block; cursor:pointer; transition:.2s; }
+    .dock i.on { width:22px; background:#8fe0b5; }
+  }
   .notch { position:absolute; top:10px; left:50%; transform:translateX(-50%);
             width:120px; height:26px; background:#000; border-radius:0 0 16px 16px; z-index:9; }
 </style>
@@ -447,6 +459,7 @@
     </div>
   </div>
 </main>
+<div class="dock" id="dock"></div>
 <script>
   const screens = [...document.querySelectorAll('.screen')];
   const navbtns = [...document.querySelectorAll('.navbtn')];
@@ -472,6 +485,43 @@
     if (e.key === 'ArrowLeft') show(screens[Math.max(idx - 1, 0)].id);
   });
   show('01-home');
+
+  // ── 手机端：侧栏隐藏时用底部圆点翻页，并把手机框等比缩放到屏幕宽
+  const dock = document.getElementById('dock');
+  screens.forEach((s, i) => {
+    const d = document.createElement('i');
+    d.dataset.to = s.id;
+    d.title = s.dataset.title;
+    d.addEventListener('click', () => show(s.id));
+    dock.appendChild(d);
+  });
+  function fit() {
+    const phone = document.querySelector('.phone');
+    const stage = document.querySelector('.stage');
+    if (!phone) return;
+    if (window.innerWidth <= 900) {
+      const scale = Math.min(1, (window.innerWidth - 6) / 410);
+      phone.style.transform = 'scale(' + scale + ')';
+      stage.style.height = (844 * scale + 8) + 'px';
+      phone.style.marginTop = '4px';
+      dock.style.display = 'flex';
+    } else {
+      phone.style.transform = 'none';
+      stage.style.height = '';
+      dock.style.display = 'none';
+    }
+  }
+  window.addEventListener('resize', fit);
+  fit();
+
+  // 圆点跟随当前屏
+  const _show = show;
+  show = function (name) {
+    _show(name);
+    [...dock.children].forEach(d => d.classList.toggle('on', d.dataset.to === name));
+  };
+  _show('01-home');
+  [...dock.children][0].classList.add('on');
 </script>
 </body>
 </html>
