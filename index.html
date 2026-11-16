@@ -41,7 +41,9 @@
   /* 热区 */
   .hs { position:absolute; display:block; border-radius:10px; cursor:pointer;
         touch-action:manipulation; }
-  .hs:hover { background:rgba(62,156,110,.10); outline:1px dashed rgba(62,156,110,.5); }
+  @media (hover: hover) {
+    .hs:hover { background:rgba(62,156,110,.10); outline:1px dashed rgba(62,156,110,.5); }
+  }
   .hs:active { background:rgba(62,156,110,.18); }
 
   /* 点击涟漪 + 提示条 */
