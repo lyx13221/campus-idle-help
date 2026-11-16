@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>校园闲置互助 · 可交互原型</title>
+<style>
+  :root { --g:#3E9C6E; --ink:#1F2A24; --line:#E4EAE5; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:"Microsoft YaHei",system-ui,sans-serif;
+         background:#0e1512; color:#e9f0eb; display:flex; min-height:100vh; }
+  .side { width:250px; padding:22px 16px; border-right:1px solid #1d2a24;
+           background:#0b1210; flex-shrink:0; }
+  .side h1 { font-size:15px; margin:0 0 4px; letter-spacing:.5px; }
+  .side p { font-size:11.5px; color:#7f948b; margin:0 0 18px; line-height:1.7; }
+  .navbtn { display:block; width:100%; text-align:left; padding:9px 11px; margin-bottom:6px;
+             background:#111c18; color:#b9c9c1; border:1px solid #1d2a24; border-radius:9px;
+             font-size:12.5px; cursor:pointer; font-family:inherit; transition:.15s; }
+  .navbtn:hover { border-color:#2e4a3c; color:#dfeae3; }
+  .navbtn.on { background:rgba(62,156,110,.16); border-color:var(--g); color:#8fe0b5; }
+  .tip { font-size:10.5px; color:#5f7369; line-height:1.8; margin-top:16px; }
+  .stage { flex:1; display:flex; align-items:center; justify-content:center; padding:24px; }
+  .phone { position:relative; width:390px; height:844px; border-radius:44px;
+            background:#000; padding:10px; box-shadow:0 30px 80px rgba(0,0,0,.55); }
+  .viewport { position:relative; width:370px; height:824px; border-radius:36px; overflow:hidden; background:#F6F8F6; }
+  .screen { position:absolute; inset:0; display:none; }
+  .screen.on { display:block; }
+  .art svg { width:370px; height:800px; display:block; }
+  .hs { position:absolute; display:block; border-radius:10px; cursor:pointer; }
+  .hs:hover { background:rgba(62,156,110,.10); outline:1px dashed rgba(62,156,110,.55); }
+  .notch { position:absolute; top:10px; left:50%; transform:translateX(-50%);
+            width:120px; height:26px; background:#000; border-radius:0 0 16px 16px; z-index:9; }
+</style>
+</head>
+<body>
+<aside class="side">
+  <h1>校园闲置互助 · 原型</h1>
+  <p>5 个核心页面 + 1 个聊天窗口。<br>点高亮区域跳转，底部 tab 也能点。</p>
+  <button class="navbtn" data-to="01-home">1. 首页</button><button class="navbtn" data-to="02-post">2. 闲置发布</button><button class="navbtn" data-to="03-help">3. 互助广场</button><button class="navbtn" data-to="04-chat">4. 消息</button><button class="navbtn" data-to="04b-chatroom">5. 聊天窗口</button><button class="navbtn" data-to="05-mine">6. 个人中心</button>
+  <div class="tip">提示：鼠标移到图上会显示可点区域；按键盘 ← → 也能翻页。</div>
+</aside>
+<main class="stage">
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="viewport">
+      <section class="screen" id="01-home" data-title="首页">
+<div class="art"><svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844">
+<rect width="390" height="844" fill="#F6F8F6"/>
+<text x="24" y="34" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12" fill="#1F2A24" font-weight="600" text-anchor="start">9:41</text>
+<rect x="300" y="28.5" width="8" height="3" rx="1.5" fill="#1F2A24"/>
+<rect x="312" y="27.5" width="8" height="5" rx="1.5" fill="#1F2A24"/>
+<rect x="324" y="27.5" width="8" height="5" rx="1.5" fill="#1F2A24"/>
+<rect x="336" y="26.5" width="8" height="7" rx="1.5" fill="#1F2A24"/>
+<rect x="352" y="25" width="20" height="11" rx="3" fill="none" stroke="#1F2A24" stroke-width="1.2"/>
+<rect x="355" y="28" width="12" height="5" rx="1" fill="#1F2A24"/>
+<rect x="0" y="0" width="390" height="96" rx="0" fill="#FFFFFF"/>
+<text x="195.0" y="74" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="17" fill="#1F2A24" font-weight="700" text-anchor="middle">校园闲置 · 互助</text>
+<text x="24" y="128" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="22" fill="#1F2A24" font-weight="700" text-anchor="start">同学，早</text>
+<text x="24" y="152" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12" fill="#5A6A61" font-weight="400" text-anchor="start">今天有 23 件新闲置 · 7 条求助</text>
+<rect x="20" y="172" width="350" height="42" rx="21" fill="#F0F4F1"/>
+<circle cx="44" cy="193" r="6" fill="none" stroke="#93A29A" stroke-width="1.5"/>
+<text x="62" y="198" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="13" fill="#93A29A" font-weight="400" text-anchor="start">搜教材 / 衣架 / 代取快递</text>
+<rect x="20" y="232" width="78" height="74" rx="14" fill="#E7F3EC"/>
+<circle cx="59" cy="258" r="13" fill="#FFFFFF" opacity="0.75"/>
+<text x="59" y="263" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="13" fill="#3E9C6E" font-weight="700" text-anchor="middle">教</text>
+<text x="59" y="292" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11.5" fill="#5A6A61" font-weight="600" text-anchor="middle">教材</text>
+<rect x="110" y="232" width="78" height="74" rx="14" fill="#E8EFF7"/>
+<circle cx="149" cy="258" r="13" fill="#FFFFFF" opacity="0.75"/>
+<text x="149" y="263" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="13" fill="#4E7FB8" font-weight="700" text-anchor="middle">服</text>
+<text x="149" y="292" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11.5" fill="#5A6A61" font-weight="600" text-anchor="middle">服饰</text>
+<rect x="200" y="232" width="78" height="74" rx="14" fill="#FBEEE2"/>
+<circle cx="239" cy="258" r="13" fill="#FFFFFF" opacity="0.75"/>
+<text x="239" y="263" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="13" fill="#EC8A45" font-weight="700" text-anchor="middle">生</text>
+<text x="239" y="292" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11.5" fill="#5A6A61" font-weight="600" text-anchor="middle">生活</text>
+<rect x="290" y="232" width="78" height="74" rx="14" fill="#F8E8ED"/>
+<circle cx="329" cy="258" r="13" fill="#FFFFFF" opacity="0.75"/>
+<text x="329" y="263" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="13" fill="#C4637F" font-weight="700" text-anchor="middle">求</text>
+<text x="329" y="292" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11.5" fill="#5A6A61" font-weight="600" text-anchor="middle">求助</text>
+<text x="24" y="338" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="15" fill="#1F2A24" font-weight="700" text-anchor="start">离你最近</text>
+<text x="366" y="338" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11.5" fill="#93A29A" font-weight="400" text-anchor="end">按距离 ›</text>
+<rect x="20" y="352" width="350" height="96" rx="14" fill="#FFFFFF"/>
+<rect x="32" y="366" width="68" height="68" rx="10" fill="#E7F3EC"/>
+<text x="66" y="408" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="22" fill="#3E9C6E" font-weight="700" text-anchor="middle">高</text>
+<text x="112" y="384" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="13.5" fill="#1F2A24" font-weight="600" text-anchor="start">高等数学 第七版（上下册）</text>
+<text x="112" y="404" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#93A29A" font-weight="400" text-anchor="start">教材 · 九成新</text>
+<text x="112" y="428" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#93A29A" font-weight="400" text-anchor="start">3 号楼 · 80m</text>
+<text x="356" y="386" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="14" fill="#3E9C6E" font-weight="700" text-anchor="end">¥25</text>
+<rect x="312" y="414" width="44" height="20" rx="10.0" fill="#E7F3EC"/>
+<text x="334.0" y="427.6" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="10" fill="#3E9C6E" font-weight="600" text-anchor="middle">可换</text>
+<rect x="20" y="460" width="350" height="96" rx="14" fill="#FFFFFF"/>
+<rect x="32" y="474" width="68" height="68" rx="10" fill="#FBEEE2"/>
+<text x="66" y="516" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="22" fill="#EC8A45" font-weight="700" text-anchor="middle">宜</text>
+<text x="112" y="492" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="13.5" fill="#1F2A24" font-weight="600" text-anchor="start">宜家台灯（暖光）</text>
+<text x="112" y="512" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#93A29A" font-weight="400" text-anchor="start">生活 · 八成新</text>
+<text x="112" y="536" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#93A29A" font-weight="400" text-anchor="start">6 号楼 · 120m</text>
+<text x="356" y="494" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="14" fill="#EC8A45" font-weight="700" text-anchor="end">¥15</text>
+<rect x="312" y="522" width="44" height="20" rx="10.0" fill="#FBEEE2"/>
+<text x="334.0" y="535.6" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="10" fill="#EC8A45" font-weight="600" text-anchor="middle">免费送</text>
+<rect x="20" y="568" width="350" height="96" rx="14" fill="#FFFFFF"/>
+<rect x="32" y="582" width="68" height="68" rx="10" fill="#E8EFF7"/>
+<text x="66" y="624" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="22" fill="#4E7FB8" font-weight="700" text-anchor="middle">代</text>
+<text x="112" y="600" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="13.5" fill="#1F2A24" font-weight="600" text-anchor="start">代取菜鸟驿站快递</text>
+<text x="112" y="620" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#93A29A" font-weight="400" text-anchor="start">求助 · 今天 18:00 前</text>
+<text x="112" y="644" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#93A29A" font-weight="400" text-anchor="start">菜鸟驿站 · 200m</text>
+<text x="356" y="602" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="14" fill="#EC8A45" font-weight="700" text-anchor="end">悬赏 ¥3</text>
+<circle cx="332" cy="706" r="26" fill="#3E9C6E"/>
+<text x="332" y="714" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="24" fill="#FFFFFF" font-weight="600" text-anchor="middle">＋</text>
+<rect x="0" y="770" width="390" height="74" rx="0" fill="#FFFFFF"/>
+<line x1="0" y1="770" x2="390" y2="770" stroke="#E4EAE5" stroke-width="1"/>
+<rect x="37.75" y="785" width="22" height="18" rx="5" fill="#3E9C6E"/>
+<text x="48.75" y="822" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#3E9C6E" font-weight="600" text-anchor="middle">首页</text>
+<circle cx="146.25" cy="794" r="9" fill="none" stroke="#93A29A" stroke-width="1.5"/>
+<line x1="141.25" y1="794" x2="151.25" y2="794" stroke="#93A29A" stroke-width="1.6"/>
+<text x="146.25" y="822" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#93A29A" font-weight="400" text-anchor="middle">互助</text>
+<rect x="232.75" y="785" width="22" height="16" rx="5" fill="none" stroke="#93A29A" stroke-width="1.6"/>
+<line x1="240.75" y1="801" x2="236.75" y2="806" stroke="#93A29A" stroke-width="1.6"/>
+<text x="243.75" y="822" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#93A29A" font-weight="400" text-anchor="middle">消息</text>
+<circle cx="341.25" cy="791" r="7" fill="none" stroke="#93A29A" stroke-width="1.5"/>
+<rect x="331.25" y="800" width="20" height="9" rx="5" fill="none" stroke="#93A29A" stroke-width="1.6"/>
+<text x="341.25" y="822" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#93A29A" font-weight="400" text-anchor="middle">我的</text>
+</svg></div>
+<a class="hs" data-go="post" style="left:306px;top:680px;width:52px;height:52px"></a>
+<a class="hs" data-go="home" style="left:0.0px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="help" style="left:97.5px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="chat" style="left:195.0px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="mine" style="left:292.5px;top:770px;width:97.5px;height:74px"></a>
+</section><section class="screen" id="02-post" data-title="闲置发布">
+<div class="art"><svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844">
+<rect width="390" height="844" fill="#F6F8F6"/>
+<text x="24" y="34" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12" fill="#1F2A24" font-weight="600" text-anchor="start">9:41</text>
+<rect x="300" y="28.5" width="8" height="3" rx="1.5" fill="#1F2A24"/>
+<rect x="312" y="27.5" width="8" height="5" rx="1.5" fill="#1F2A24"/>
+<rect x="324" y="27.5" width="8" height="5" rx="1.5" fill="#1F2A24"/>
+<rect x="336" y="26.5" width="8" height="7" rx="1.5" fill="#1F2A24"/>
+<rect x="352" y="25" width="20" height="11" rx="3" fill="none" stroke="#1F2A24" stroke-width="1.2"/>
+<rect x="355" y="28" width="12" height="5" rx="1" fill="#1F2A24"/>
+<rect x="0" y="0" width="390" height="96" rx="0" fill="#FFFFFF"/>
+<text x="195.0" y="74" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="17" fill="#1F2A24" font-weight="700" text-anchor="middle">发布闲置</text>
+<text x="24" y="76" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="26" fill="#1F2A24" font-weight="400" text-anchor="start">‹</text>
+<rect x="20" y="108" width="350" height="150" rx="14" fill="#EEF3EF" stroke="#E4EAE5" stroke-width="1" stroke-dasharray="5 4"/>
+<text x="195.0" y="168" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="30" fill="#93A29A" font-weight="400" text-anchor="middle">＋</text>
+<text x="195.0" y="200" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12" fill="#93A29A" font-weight="400" text-anchor="middle">添加图片（最多 9 张）</text>
+<text x="195.0" y="220" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="10.5" fill="#93A29A" font-weight="400" text-anchor="middle">拍清楚瑕疵，成交快一倍</text>
+<text x="24" y="288" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12" fill="#93A29A" font-weight="600" text-anchor="start">标题</text>
+<rect x="20" y="298" width="350" height="44" rx="10" fill="#FFFFFF"/>
+<text x="34" y="326" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="13" fill="#93A29A" font-weight="400" text-anchor="start">例如：高数第七版 上下册</text>
+<text x="24" y="366" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12" fill="#93A29A" font-weight="600" text-anchor="start">分类</text>
+<rect x="20" y="376" width="48" height="32" rx="16.0" fill="#3E9C6E"/>
+<text x="44.0" y="396.32" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12" fill="#FFFFFF" font-weight="600" text-anchor="middle">教材</text>
+<rect x="76" y="376" width="48" height="32" rx="16.0" fill="#F0F4F1"/>
+<text x="100.0" y="396.32" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12" fill="#5A6A61" font-weight="600" text-anchor="middle">服饰</text>
+<rect x="132" y="376" width="74" height="32" rx="16.0" fill="#F0F4F1"/>
+<text x="169.0" y="396.32" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12" fill="#5A6A61" font-weight="600" text-anchor="middle">生活用品</text>
+<rect x="214" y="376" width="48" height="32" rx="16.0" fill="#F0F4F1"/>
+<text x="238.0" y="396.32" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12" fill="#5A6A61" font-weight="600" text-anchor="middle">数码</text>
+<rect x="270" y="376" width="48" height="32" rx="16.0" fill="#F0F4F1"/>
+<text x="294.0" y="396.32" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12" fill="#5A6A61" font-weight="600" text-anchor="middle">其他</text>
+<text x="24" y="440" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12" fill="#93A29A" font-weight="600" text-anchor="start">成色</text>
+<rect x="20" y="450" width="80" height="32" rx="16.0" fill="#F0F4F1"/>
+<text x="60.0" y="470.14" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11.5" fill="#5A6A61" font-weight="600" text-anchor="middle">全新</text>
+<rect x="108" y="450" width="80" height="32" rx="16.0" fill="#E7F3EC"/>
+<text x="148.0" y="470.14" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11.5" fill="#3E9C6E" font-weight="600" text-anchor="middle">九成新</text>
+<rect x="196" y="450" width="80" height="32" rx="16.0" fill="#F0F4F1"/>
+<text x="236.0" y="470.14" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11.5" fill="#5A6A61" font-weight="600" text-anchor="middle">八成新</text>
+<rect x="284" y="450" width="80" height="32" rx="16.0" fill="#F0F4F1"/>
+<text x="324.0" y="470.14" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11.5" fill="#5A6A61" font-weight="600" text-anchor="middle">有瑕疵</text>
+<text x="24" y="514" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12" fill="#93A29A" font-weight="600" text-anchor="start">交易方式</text>
+<rect x="20" y="524" width="80" height="32" rx="16.0" fill="#FBEEE2"/>
+<text x="60.0" y="544.14" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11.5" fill="#EC8A45" font-weight="600" text-anchor="middle">出售</text>
+<rect x="108" y="524" width="80" height="32" rx="16.0" fill="#F0F4F1"/>
+<text x="148.0" y="544.14" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11.5" fill="#5A6A61" font-weight="600" text-anchor="middle">互换</text>
+<rect x="196" y="524" width="80" height="32" rx="16.0" fill="#F0F4F1"/>
+<text x="236.0" y="544.14" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11.5" fill="#5A6A61" font-weight="600" text-anchor="middle">免费送</text>
+<text x="24" y="588" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12" fill="#93A29A" font-weight="600" text-anchor="start">价格</text>
+<rect x="20" y="598" width="150" height="44" rx="10" fill="#FFFFFF"/>
+<text x="34" y="626" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="15" fill="#1F2A24" font-weight="600" text-anchor="start">¥ 25</text>
+<text x="190" y="626" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11.5" fill="#93A29A" font-weight="400" text-anchor="start">可小刀</text>
+<text x="24" y="674" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12" fill="#93A29A" font-weight="600" text-anchor="start">取货地点</text>
+<rect x="20" y="684" width="350" height="44" rx="10" fill="#FFFFFF"/>
+<text x="34" y="712" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="13" fill="#5A6A61" font-weight="400" text-anchor="start">3 号楼 · 一层大厅（离你 80m）</text>
+<rect x="20" y="750" width="350" height="52" rx="26.0" fill="#E7F3EC"/>
+<text x="195.0" y="781.4" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="15" fill="#3E9C6E" font-weight="600" text-anchor="middle">发布（还需 1 张图）</text>
+</svg></div>
+<a class="hs" data-go="back" style="left:8px;top:52px;width:44px;height:44px"></a>
+<a class="hs" data-go="home" style="left:20px;top:750px;width:350px;height:52px"></a>
+</section><section class="screen" id="03-help" data-title="互助广场">
+<div class="art"><svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844">
+<rect width="390" height="844" fill="#F6F8F6"/>
+<text x="24" y="34" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12" fill="#1F2A24" font-weight="600" text-anchor="start">9:41</text>
+<rect x="300" y="28.5" width="8" height="3" rx="1.5" fill="#1F2A24"/>
+<rect x="312" y="27.5" width="8" height="5" rx="1.5" fill="#1F2A24"/>
+<rect x="324" y="27.5" width="8" height="5" rx="1.5" fill="#1F2A24"/>
+<rect x="336" y="26.5" width="8" height="7" rx="1.5" fill="#1F2A24"/>
+<rect x="352" y="25" width="20" height="11" rx="3" fill="none" stroke="#1F2A24" stroke-width="1.2"/>
+<rect x="355" y="28" width="12" height="5" rx="1" fill="#1F2A24"/>
+<rect x="0" y="0" width="390" height="96" rx="0" fill="#FFFFFF"/>
+<text x="195.0" y="74" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="17" fill="#1F2A24" font-weight="700" text-anchor="middle">互助广场</text>
+<text x="366" y="74" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="13" fill="#3E9C6E" font-weight="600" text-anchor="end">我要帮忙</text>
+<text x="24" y="122" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="13" fill="#5A6A61" font-weight="400" text-anchor="start">今天 7 条求助</text>
+<rect x="20" y="138" width="52" height="30" rx="15.0" fill="#3E9C6E"/>
+<text x="46.0" y="157.32" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12" fill="#FFFFFF" font-weight="600" text-anchor="middle">全部</text>
+<rect x="80" y="138" width="78" height="30" rx="15" fill="#FFFFFF" stroke="#E4EAE5" stroke-width="1"/>
+<text x="119.0" y="158" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12" fill="#5A6A61" font-weight="500" text-anchor="middle">代取快递</text>
+<rect x="166" y="138" width="65" height="30" rx="15" fill="#FFFFFF" stroke="#E4EAE5" stroke-width="1"/>
+<text x="198.5" y="158" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12" fill="#5A6A61" font-weight="500" text-anchor="middle">借物品</text>
+<rect x="239" y="138" width="52" height="30" rx="15" fill="#FFFFFF" stroke="#E4EAE5" stroke-width="1"/>
+<text x="265.0" y="158" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12" fill="#5A6A61" font-weight="500" text-anchor="middle">拼单</text>
+<rect x="20" y="186" width="350" height="108" rx="14" fill="#FFFFFF"/>
+<rect x="34" y="200" width="64" height="22" rx="11.0" fill="#E8EFF7"/>
+<text x="66.0" y="214.78" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="10.5" fill="#4E7FB8" font-weight="600" text-anchor="middle">代取快递</text>
+<text x="34" y="244" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="13.5" fill="#1F2A24" font-weight="600" text-anchor="start">菜鸟驿站 3 号柜 → 5 号楼</text>
+<text x="34" y="264" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11.5" fill="#93A29A" font-weight="400" text-anchor="start">悬赏 ¥3 · 今天 18:00 前</text>
+<text x="356" y="216" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#4E7FB8" font-weight="600" text-anchor="end">2 人已报名</text>
+<text x="356" y="272" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11.5" fill="#3E9C6E" font-weight="600" text-anchor="end">去帮忙 ›</text>
+<rect x="20" y="306" width="350" height="108" rx="14" fill="#FFFFFF"/>
+<rect x="34" y="320" width="64" height="22" rx="11.0" fill="#FBEEE2"/>
+<text x="66.0" y="334.78" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="10.5" fill="#EC8A45" font-weight="600" text-anchor="middle">借物品</text>
+<text x="34" y="364" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="13.5" fill="#1F2A24" font-weight="600" text-anchor="start">借一个衣架，晾被子用一晚</text>
+<text x="34" y="384" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11.5" fill="#93A29A" font-weight="400" text-anchor="start">免费 · 明天 12:00 还</text>
+<text x="356" y="336" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#EC8A45" font-weight="600" text-anchor="end">待接单</text>
+<text x="356" y="392" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11.5" fill="#3E9C6E" font-weight="600" text-anchor="end">去帮忙 ›</text>
+<rect x="20" y="426" width="350" height="108" rx="14" fill="#FFFFFF"/>
+<rect x="34" y="440" width="64" height="22" rx="11.0" fill="#E7F3EC"/>
+<text x="66.0" y="454.78" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="10.5" fill="#3E9C6E" font-weight="600" text-anchor="middle">拼单</text>
+<text x="34" y="484" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="13.5" fill="#1F2A24" font-weight="600" text-anchor="start">拼一箱矿泉水（24 瓶）</text>
+<text x="34" y="504" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11.5" fill="#93A29A" font-weight="400" text-anchor="start">人均 ¥12 · 还差 2 人</text>
+<text x="356" y="456" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#3E9C6E" font-weight="600" text-anchor="end">4/6 人</text>
+<text x="356" y="512" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11.5" fill="#3E9C6E" font-weight="600" text-anchor="end">去帮忙 ›</text>
+<rect x="20" y="546" width="350" height="108" rx="14" fill="#FFFFFF"/>
+<rect x="34" y="560" width="64" height="22" rx="11.0" fill="#E8EFF7"/>
+<text x="66.0" y="574.78" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="10.5" fill="#4E7FB8" font-weight="600" text-anchor="middle">代取快递</text>
+<text x="34" y="604" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="13.5" fill="#1F2A24" font-weight="600" text-anchor="start">东门快递点 → 图书馆</text>
+<text x="34" y="624" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11.5" fill="#93A29A" font-weight="400" text-anchor="start">悬赏 ¥2 · 今天 20:00 前</text>
+<text x="356" y="576" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#4E7FB8" font-weight="600" text-anchor="end">待接单</text>
+<text x="356" y="632" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11.5" fill="#3E9C6E" font-weight="600" text-anchor="end">去帮忙 ›</text>
+<rect x="20" y="682" width="350" height="70" rx="14" fill="#E7F3EC"/>
+<text x="38" y="710" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="14" fill="#3E9C6E" font-weight="700" text-anchor="start">你的互助分：86</text>
+<text x="38" y="732" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="10.5" fill="#5A6A61" font-weight="400" text-anchor="start">帮过一次忙 +2 分，可在图书馆兑换打印额度</text>
+<rect x="0" y="770" width="390" height="74" rx="0" fill="#FFFFFF"/>
+<line x1="0" y1="770" x2="390" y2="770" stroke="#E4EAE5" stroke-width="1"/>
+<rect x="37.75" y="785" width="22" height="18" rx="5" fill="#93A29A"/>
+<text x="48.75" y="822" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#93A29A" font-weight="400" text-anchor="middle">首页</text>
+<circle cx="146.25" cy="794" r="9" fill="none" stroke="#3E9C6E" stroke-width="1.5"/>
+<line x1="141.25" y1="794" x2="151.25" y2="794" stroke="#3E9C6E" stroke-width="1.6"/>
+<text x="146.25" y="822" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#3E9C6E" font-weight="600" text-anchor="middle">互助</text>
+<rect x="232.75" y="785" width="22" height="16" rx="5" fill="none" stroke="#93A29A" stroke-width="1.6"/>
+<line x1="240.75" y1="801" x2="236.75" y2="806" stroke="#93A29A" stroke-width="1.6"/>
+<text x="243.75" y="822" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#93A29A" font-weight="400" text-anchor="middle">消息</text>
+<circle cx="341.25" cy="791" r="7" fill="none" stroke="#93A29A" stroke-width="1.5"/>
+<rect x="331.25" y="800" width="20" height="9" rx="5" fill="none" stroke="#93A29A" stroke-width="1.6"/>
+<text x="341.25" y="822" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#93A29A" font-weight="400" text-anchor="middle">我的</text>
+</svg></div>
+<a class="hs" data-go="home" style="left:0.0px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="help" style="left:97.5px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="chat" style="left:195.0px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="mine" style="left:292.5px;top:770px;width:97.5px;height:74px"></a>
+</section><section class="screen" id="04-chat" data-title="消息">
+<div class="art"><svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844">
+<rect width="390" height="844" fill="#F6F8F6"/>
+<text x="24" y="34" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12" fill="#1F2A24" font-weight="600" text-anchor="start">9:41</text>
+<rect x="300" y="28.5" width="8" height="3" rx="1.5" fill="#1F2A24"/>
+<rect x="312" y="27.5" width="8" height="5" rx="1.5" fill="#1F2A24"/>
+<rect x="324" y="27.5" width="8" height="5" rx="1.5" fill="#1F2A24"/>
+<rect x="336" y="26.5" width="8" height="7" rx="1.5" fill="#1F2A24"/>
+<rect x="352" y="25" width="20" height="11" rx="3" fill="none" stroke="#1F2A24" stroke-width="1.2"/>
+<rect x="355" y="28" width="12" height="5" rx="1" fill="#1F2A24"/>
+<rect x="0" y="0" width="390" height="96" rx="0" fill="#FFFFFF"/>
+<text x="195.0" y="74" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="17" fill="#1F2A24" font-weight="700" text-anchor="middle">消息</text>
+<text x="366" y="74" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="13" fill="#3E9C6E" font-weight="600" text-anchor="end">清空未读</text>
+<rect x="20" y="112" width="350" height="76" rx="14" fill="#FFFFFF"/>
+<circle cx="54" cy="150" r="22" fill="#3E9C6E" opacity="0.14"/>
+<text x="54" y="156" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="15" fill="#3E9C6E" font-weight="700" text-anchor="middle">李</text>
+<text x="92" y="144" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="13.5" fill="#1F2A24" font-weight="600" text-anchor="start">李同学</text>
+<text x="92" y="166" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11.5" fill="#93A29A" font-weight="400" text-anchor="start">台灯我明天下午去拿可以吗</text>
+<text x="356" y="142" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="10.5" fill="#93A29A" font-weight="400" text-anchor="end">10:24</text>
+<circle cx="350" cy="166" r="10" fill="#EC8A45"/>
+<text x="350" y="170" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="10" fill="#FFFFFF" font-weight="700" text-anchor="middle">2</text>
+<rect x="20" y="200" width="350" height="76" rx="14" fill="#FFFFFF"/>
+<circle cx="54" cy="238" r="22" fill="#4E7FB8" opacity="0.14"/>
+<text x="54" y="244" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="15" fill="#4E7FB8" font-weight="700" text-anchor="middle">互</text>
+<text x="92" y="232" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="13.5" fill="#1F2A24" font-weight="600" text-anchor="start">互助 · 王同学</text>
+<text x="92" y="254" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11.5" fill="#93A29A" font-weight="400" text-anchor="start">快递已取，放你宿舍门口了</text>
+<text x="356" y="230" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="10.5" fill="#93A29A" font-weight="400" text-anchor="end">昨天</text>
+<rect x="20" y="288" width="350" height="76" rx="14" fill="#FFFFFF"/>
+<circle cx="54" cy="326" r="22" fill="#EC8A45" opacity="0.14"/>
+<text x="54" y="332" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="15" fill="#EC8A45" font-weight="700" text-anchor="middle">闲</text>
+<text x="92" y="320" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="13.5" fill="#1F2A24" font-weight="600" text-anchor="start">闲置 · 陈同学</text>
+<text x="92" y="342" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11.5" fill="#93A29A" font-weight="400" text-anchor="start">高数书还在吗？</text>
+<text x="356" y="318" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="10.5" fill="#93A29A" font-weight="400" text-anchor="end">昨天</text>
+<circle cx="350" cy="342" r="10" fill="#EC8A45"/>
+<text x="350" y="346" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="10" fill="#FFFFFF" font-weight="700" text-anchor="middle">1</text>
+<rect x="20" y="376" width="350" height="76" rx="14" fill="#FFFFFF"/>
+<circle cx="54" cy="414" r="22" fill="#C4637F" opacity="0.14"/>
+<text x="54" y="420" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="15" fill="#C4637F" font-weight="700" text-anchor="middle">拼</text>
+<text x="92" y="408" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="13.5" fill="#1F2A24" font-weight="600" text-anchor="start">拼单群（矿泉水）</text>
+<text x="92" y="430" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11.5" fill="#93A29A" font-weight="400" text-anchor="start">还差 2 人，谁来？</text>
+<text x="356" y="406" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="10.5" fill="#93A29A" font-weight="400" text-anchor="end">周二</text>
+<text x="24" y="470" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12" fill="#93A29A" font-weight="600" text-anchor="start">快捷回复</text>
+<rect x="20" y="482" width="110" height="32" rx="16.0" fill="#F0F4F1"/>
+<text x="75.0" y="502.14" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11.5" fill="#5A6A61" font-weight="600" text-anchor="middle">在的</text>
+<rect x="138" y="482" width="110" height="32" rx="16.0" fill="#F0F4F1"/>
+<text x="193.0" y="502.14" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11.5" fill="#5A6A61" font-weight="600" text-anchor="middle">明天几点方便？</text>
+<rect x="256" y="482" width="110" height="32" rx="16.0" fill="#F0F4F1"/>
+<text x="311.0" y="502.14" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11.5" fill="#5A6A61" font-weight="600" text-anchor="middle">可以，谢谢！</text>
+<rect x="0" y="770" width="390" height="74" rx="0" fill="#FFFFFF"/>
+<line x1="0" y1="770" x2="390" y2="770" stroke="#E4EAE5" stroke-width="1"/>
+<rect x="37.75" y="785" width="22" height="18" rx="5" fill="#93A29A"/>
+<text x="48.75" y="822" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#93A29A" font-weight="400" text-anchor="middle">首页</text>
+<circle cx="146.25" cy="794" r="9" fill="none" stroke="#93A29A" stroke-width="1.5"/>
+<line x1="141.25" y1="794" x2="151.25" y2="794" stroke="#93A29A" stroke-width="1.6"/>
+<text x="146.25" y="822" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#93A29A" font-weight="400" text-anchor="middle">互助</text>
+<rect x="232.75" y="785" width="22" height="16" rx="5" fill="none" stroke="#3E9C6E" stroke-width="1.6"/>
+<line x1="240.75" y1="801" x2="236.75" y2="806" stroke="#3E9C6E" stroke-width="1.6"/>
+<text x="243.75" y="822" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#3E9C6E" font-weight="600" text-anchor="middle">消息</text>
+<circle cx="341.25" cy="791" r="7" fill="none" stroke="#93A29A" stroke-width="1.5"/>
+<rect x="331.25" y="800" width="20" height="9" rx="5" fill="none" stroke="#93A29A" stroke-width="1.6"/>
+<text x="341.25" y="822" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#93A29A" font-weight="400" text-anchor="middle">我的</text>
+</svg></div>
+<a class="hs" data-go="chatroom" style="left:20px;top:112px;width:350px;height:76px"></a>
+<a class="hs" data-go="home" style="left:0.0px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="help" style="left:97.5px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="chat" style="left:195.0px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="mine" style="left:292.5px;top:770px;width:97.5px;height:74px"></a>
+</section><section class="screen" id="04b-chatroom" data-title="聊天窗口">
+<div class="art"><svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844">
+<rect width="390" height="844" fill="#F6F8F6"/>
+<text x="24" y="34" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12" fill="#1F2A24" font-weight="600" text-anchor="start">9:41</text>
+<rect x="300" y="28.5" width="8" height="3" rx="1.5" fill="#1F2A24"/>
+<rect x="312" y="27.5" width="8" height="5" rx="1.5" fill="#1F2A24"/>
+<rect x="324" y="27.5" width="8" height="5" rx="1.5" fill="#1F2A24"/>
+<rect x="336" y="26.5" width="8" height="7" rx="1.5" fill="#1F2A24"/>
+<rect x="352" y="25" width="20" height="11" rx="3" fill="none" stroke="#1F2A24" stroke-width="1.2"/>
+<rect x="355" y="28" width="12" height="5" rx="1" fill="#1F2A24"/>
+<rect x="0" y="0" width="390" height="96" rx="0" fill="#FFFFFF"/>
+<text x="195.0" y="74" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="17" fill="#1F2A24" font-weight="700" text-anchor="middle">李同学</text>
+<text x="24" y="76" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="26" fill="#1F2A24" font-weight="400" text-anchor="start">‹</text>
+<text x="195.0" y="120" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="10.5" fill="#93A29A" font-weight="400" text-anchor="middle">今天 10:24</text>
+<rect x="20" y="146" width="250" height="40" rx="12" fill="#FFFFFF"/>
+<text x="34" y="171" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12.5" fill="#1F2A24" font-weight="400" text-anchor="start">同学你好，台灯还在吗？</text>
+<text x="20" y="202" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="10" fill="#93A29A" font-weight="400" text-anchor="start">10:20</text>
+<rect x="120" y="218" width="250" height="40" rx="12" fill="#3E9C6E"/>
+<text x="134" y="243" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12.5" fill="#FFFFFF" font-weight="400" text-anchor="start">在的，暖光那款，八成新</text>
+<text x="370" y="274" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="10" fill="#93A29A" font-weight="400" text-anchor="end">10:21</text>
+<rect x="20" y="290" width="250" height="40" rx="12" fill="#FFFFFF"/>
+<text x="34" y="315" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12.5" fill="#1F2A24" font-weight="400" text-anchor="start">太好了，我明天下午去 6 号楼拿可以吗</text>
+<text x="20" y="346" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="10" fill="#93A29A" font-weight="400" text-anchor="start">10:22</text>
+<rect x="120" y="362" width="250" height="40" rx="12" fill="#3E9C6E"/>
+<text x="134" y="387" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12.5" fill="#FFFFFF" font-weight="400" text-anchor="start">可以，我下午都在宿舍，你到了喊我</text>
+<text x="370" y="418" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="10" fill="#93A29A" font-weight="400" text-anchor="end">10:23</text>
+<rect x="20" y="434" width="250" height="40" rx="12" fill="#FFFFFF"/>
+<text x="34" y="459" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12.5" fill="#1F2A24" font-weight="400" text-anchor="start">好嘞，那明天见～</text>
+<text x="20" y="490" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="10" fill="#93A29A" font-weight="400" text-anchor="start">10:24</text>
+<rect x="20" y="560" width="350" height="62" rx="14" fill="#FFFFFF"/>
+<text x="34" y="598" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="13" fill="#93A29A" font-weight="400" text-anchor="start">说点什么…</text>
+<rect x="312" y="574" width="52" height="34" rx="17.0" fill="#3E9C6E"/>
+<text x="338.0" y="595.32" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12" fill="#FFFFFF" font-weight="600" text-anchor="middle">发送</text>
+<rect x="20" y="640" width="350" height="120" rx="14" fill="#FFFFFF"/>
+<text x="36" y="668" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11.5" fill="#93A29A" font-weight="600" text-anchor="start">与此物品关联</text>
+<rect x="36" y="680" width="56" height="56" rx="10" fill="#FBEEE2"/>
+<text x="64" y="714" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#EC8A45" font-weight="700" text-anchor="middle">台灯</text>
+<text x="102" y="700" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12" fill="#1F2A24" font-weight="600" text-anchor="start">宜家台灯（暖光）· ¥15</text>
+<text x="102" y="720" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="10.5" fill="#93A29A" font-weight="400" text-anchor="start">6 号楼 · 120m</text>
+<rect x="102" y="730" width="80" height="24" rx="12" fill="#E7F3EC"/>
+<text x="142.0" y="745.78" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="10.5" fill="#3E9C6E" font-weight="600" text-anchor="middle">查看详情</text>
+<rect x="0" y="770" width="390" height="74" rx="0" fill="#FFFFFF"/>
+<line x1="0" y1="770" x2="390" y2="770" stroke="#E4EAE5" stroke-width="1"/>
+<rect x="37.75" y="785" width="22" height="18" rx="5" fill="#93A29A"/>
+<text x="48.75" y="822" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#93A29A" font-weight="400" text-anchor="middle">首页</text>
+<circle cx="146.25" cy="794" r="9" fill="none" stroke="#93A29A" stroke-width="1.5"/>
+<line x1="141.25" y1="794" x2="151.25" y2="794" stroke="#93A29A" stroke-width="1.6"/>
+<text x="146.25" y="822" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#93A29A" font-weight="400" text-anchor="middle">互助</text>
+<rect x="232.75" y="785" width="22" height="16" rx="5" fill="none" stroke="#3E9C6E" stroke-width="1.6"/>
+<line x1="240.75" y1="801" x2="236.75" y2="806" stroke="#3E9C6E" stroke-width="1.6"/>
+<text x="243.75" y="822" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#3E9C6E" font-weight="600" text-anchor="middle">消息</text>
+<circle cx="341.25" cy="791" r="7" fill="none" stroke="#93A29A" stroke-width="1.5"/>
+<rect x="331.25" y="800" width="20" height="9" rx="5" fill="none" stroke="#93A29A" stroke-width="1.6"/>
+<text x="341.25" y="822" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#93A29A" font-weight="400" text-anchor="middle">我的</text>
+</svg></div>
+<a class="hs" data-go="back" style="left:8px;top:52px;width:44px;height:44px"></a>
+<a class="hs" data-go="home" style="left:0.0px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="help" style="left:97.5px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="chat" style="left:195.0px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="mine" style="left:292.5px;top:770px;width:97.5px;height:74px"></a>
+</section><section class="screen" id="05-mine" data-title="个人中心">
+<div class="art"><svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844">
+<rect width="390" height="844" fill="#F6F8F6"/>
+<text x="24" y="34" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12" fill="#1F2A24" font-weight="600" text-anchor="start">9:41</text>
+<rect x="300" y="28.5" width="8" height="3" rx="1.5" fill="#1F2A24"/>
+<rect x="312" y="27.5" width="8" height="5" rx="1.5" fill="#1F2A24"/>
+<rect x="324" y="27.5" width="8" height="5" rx="1.5" fill="#1F2A24"/>
+<rect x="336" y="26.5" width="8" height="7" rx="1.5" fill="#1F2A24"/>
+<rect x="352" y="25" width="20" height="11" rx="3" fill="none" stroke="#1F2A24" stroke-width="1.2"/>
+<rect x="355" y="28" width="12" height="5" rx="1" fill="#1F2A24"/>
+<rect x="0" y="0" width="390" height="250" rx="0" fill="#EAF3ED"/>
+<text x="24" y="132" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="22" fill="#1F2A24" font-weight="700" text-anchor="start">雷同学</text>
+<text x="24" y="156" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12" fill="#5A6A61" font-weight="400" text-anchor="start">视觉传达 · 大四 · 3 号楼</text>
+<circle cx="330" cy="128" r="32" fill="#3E9C6E" opacity="0.9"/>
+<text x="330" y="136" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="22" fill="#FFFFFF" font-weight="700" text-anchor="middle">雷</text>
+<text x="24" y="206" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="20" fill="#3E9C6E" font-weight="700" text-anchor="start">12</text>
+<text x="58" y="204" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#5A6A61" font-weight="400" text-anchor="start">在售</text>
+<text x="140" y="206" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="20" fill="#3E9C6E" font-weight="700" text-anchor="start">26</text>
+<text x="174" y="204" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#5A6A61" font-weight="400" text-anchor="start">已成交</text>
+<text x="256" y="206" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="20" fill="#3E9C6E" font-weight="700" text-anchor="start">86</text>
+<text x="290" y="204" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#5A6A61" font-weight="400" text-anchor="start">互助分</text>
+<rect x="20" y="268" width="350" height="66" rx="14" fill="#FFFFFF"/>
+<text x="36" y="294" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="13" fill="#1F2A24" font-weight="600" text-anchor="start">我的发布</text>
+<text x="36" y="314" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#93A29A" font-weight="400" text-anchor="start">12 件在售 · 3 件待确认</text>
+<text x="354" y="302" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="20" fill="#93A29A" font-weight="400" text-anchor="end">›</text>
+<rect x="20" y="348" width="350" height="60" rx="12" fill="#FFFFFF"/>
+<text x="36" y="373" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="13" fill="#1F2A24" font-weight="600" text-anchor="start">我的求助</text>
+<text x="36" y="392" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="10.5" fill="#93A29A" font-weight="400" text-anchor="start">2 条进行中</text>
+<text x="354" y="384" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="18" fill="#93A29A" font-weight="400" text-anchor="end">›</text>
+<rect x="20" y="418" width="350" height="60" rx="12" fill="#FFFFFF"/>
+<text x="36" y="443" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="13" fill="#1F2A24" font-weight="600" text-anchor="start">我的互助</text>
+<text x="36" y="462" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="10.5" fill="#93A29A" font-weight="400" text-anchor="start">帮过 5 次忙</text>
+<text x="354" y="454" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="18" fill="#93A29A" font-weight="400" text-anchor="end">›</text>
+<rect x="20" y="488" width="350" height="60" rx="12" fill="#FFFFFF"/>
+<text x="36" y="513" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="13" fill="#1F2A24" font-weight="600" text-anchor="start">收藏夹</text>
+<text x="36" y="532" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="10.5" fill="#93A29A" font-weight="400" text-anchor="start">8 件物品</text>
+<text x="354" y="524" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="18" fill="#93A29A" font-weight="400" text-anchor="end">›</text>
+<rect x="20" y="558" width="350" height="60" rx="12" fill="#FFFFFF"/>
+<text x="36" y="583" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="13" fill="#1F2A24" font-weight="600" text-anchor="start">设置</text>
+<text x="36" y="602" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="10.5" fill="#93A29A" font-weight="400" text-anchor="start">隐私 · 通知</text>
+<text x="354" y="594" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="18" fill="#93A29A" font-weight="400" text-anchor="end">›</text>
+<rect x="20" y="638" width="350" height="56" rx="12" fill="#E7F3EC"/>
+<text x="36" y="662" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12.5" fill="#3E9C6E" font-weight="600" text-anchor="start">完成学生认证，发布免押金</text>
+<text x="36" y="680" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="10.5" fill="#5A6A61" font-weight="400" text-anchor="start">用校园邮箱验证，只需 1 分钟</text>
+<rect x="0" y="770" width="390" height="74" rx="0" fill="#FFFFFF"/>
+<line x1="0" y1="770" x2="390" y2="770" stroke="#E4EAE5" stroke-width="1"/>
+<rect x="37.75" y="785" width="22" height="18" rx="5" fill="#93A29A"/>
+<text x="48.75" y="822" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#93A29A" font-weight="400" text-anchor="middle">首页</text>
+<circle cx="146.25" cy="794" r="9" fill="none" stroke="#93A29A" stroke-width="1.5"/>
+<line x1="141.25" y1="794" x2="151.25" y2="794" stroke="#93A29A" stroke-width="1.6"/>
+<text x="146.25" y="822" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#93A29A" font-weight="400" text-anchor="middle">互助</text>
+<rect x="232.75" y="785" width="22" height="16" rx="5" fill="none" stroke="#93A29A" stroke-width="1.6"/>
+<line x1="240.75" y1="801" x2="236.75" y2="806" stroke="#93A29A" stroke-width="1.6"/>
+<text x="243.75" y="822" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#93A29A" font-weight="400" text-anchor="middle">消息</text>
+<circle cx="341.25" cy="791" r="7" fill="none" stroke="#3E9C6E" stroke-width="1.5"/>
+<rect x="331.25" y="800" width="20" height="9" rx="5" fill="none" stroke="#3E9C6E" stroke-width="1.6"/>
+<text x="341.25" y="822" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#3E9C6E" font-weight="600" text-anchor="middle">我的</text>
+</svg></div>
+<a class="hs" data-go="home" style="left:0.0px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="help" style="left:97.5px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="chat" style="left:195.0px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="mine" style="left:292.5px;top:770px;width:97.5px;height:74px"></a>
+</section>
+    </div>
+  </div>
+</main>
+<script>
+  const screens = [...document.querySelectorAll('.screen')];
+  const navbtns = [...document.querySelectorAll('.navbtn')];
+  let idx = 0;
+  function show(name) {
+    let i = screens.findIndex(s => s.id === name);
+    if (i < 0) { i = 0; }
+    screens.forEach((s, k) => s.classList.toggle('on', k === i));
+    navbtns.forEach((b, k) => b.classList.toggle('on', k === i));
+    idx = i;
+  }
+  document.querySelectorAll('.hs').forEach(h => {
+    h.addEventListener('click', e => {
+      e.stopPropagation();
+      const go = h.dataset.go;
+      if (go === 'back') { history.length > 1 ? history.back() : show('01-home'); return; }
+      show(go);
+    });
+  });
+  navbtns.forEach(b => b.addEventListener('click', () => show(b.dataset.to)));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') show(screens[Math.min(idx + 1, screens.length - 1)].id);
+    if (e.key === 'ArrowLeft') show(screens[Math.max(idx - 1, 0)].id);
+  });
+  show('01-home');
+</script>
+</body>
+</html>
