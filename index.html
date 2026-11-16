@@ -2,59 +2,86 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>校园闲置互助 · 可交互原型</title>
 <style>
   :root { --g:#3E9C6E; --ink:#1F2A24; --line:#E4EAE5; }
-  * { box-sizing:border-box; }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
   body { margin:0; font-family:"Microsoft YaHei",system-ui,sans-serif;
          background:#0e1512; color:#e9f0eb; display:flex; min-height:100vh; }
+
+  /* 桌面：左侧导航 */
   .side { width:250px; padding:22px 16px; border-right:1px solid #1d2a24;
-           background:#0b1210; flex-shrink:0; }
+          background:#0b1210; flex-shrink:0; }
   .side h1 { font-size:15px; margin:0 0 4px; letter-spacing:.5px; }
-  .side p { font-size:11.5px; color:#7f948b; margin:0 0 18px; line-height:1.7; }
+  .side p { font-size:11.5px; color:#7f948b; margin:0 0 14px; line-height:1.7; }
   .navbtn { display:block; width:100%; text-align:left; padding:9px 11px; margin-bottom:6px;
-             background:#111c18; color:#b9c9c1; border:1px solid #1d2a24; border-radius:9px;
-             font-size:12.5px; cursor:pointer; font-family:inherit; transition:.15s; }
+            background:#111c18; color:#b9c9c1; border:1px solid #1d2a24; border-radius:9px;
+            font-size:12.5px; cursor:pointer; font-family:inherit; transition:.15s; }
   .navbtn:hover { border-color:#2e4a3c; color:#dfeae3; }
   .navbtn.on { background:rgba(62,156,110,.16); border-color:var(--g); color:#8fe0b5; }
-  .tip { font-size:10.5px; color:#5f7369; line-height:1.8; margin-top:16px; }
-  .stage { flex:1; display:flex; align-items:center; justify-content:center; padding:24px; }
-  .phone { position:relative; width:390px; height:844px; border-radius:44px;
-            background:#000; padding:10px; box-shadow:0 30px 80px rgba(0,0,0,.55); }
-  .viewport { position:relative; width:370px; height:824px; border-radius:36px; overflow:hidden; background:#F6F8F6; }
+  .tip { font-size:10.5px; color:#5f7369; line-height:1.8; margin-top:14px; }
+  .tip b { color:#8fe0b5; }
+
+  .stage { flex:1; display:flex; align-items:center; justify-content:center; padding:20px; }
+
+  /* 手机框：宽高与 SVG 完全一致，热区才不会错位 */
+  .phone { position:relative; width:390px; height:844px; border-radius:42px;
+           background:#0a0a0a; padding:0; overflow:hidden;
+           box-shadow:0 30px 80px rgba(0,0,0,.55); }
+  .viewport { position:absolute; inset:0; overflow:hidden; background:#F6F8F6; }
+
   .screen { position:absolute; inset:0; display:none; }
   .screen.on { display:block; }
-  .art svg { width:370px; height:800px; display:block; }
-  .hs { position:absolute; display:block; border-radius:10px; cursor:pointer; }
-  .hs:hover { background:rgba(62,156,110,.10); outline:1px dashed rgba(62,156,110,.55); }
+
+  /* SVG 铺满整屏，坐标 1:1 */
+  .art { position:absolute; inset:0; }
+  .art svg { width:390px; height:844px; display:block; }
+
+  /* 热区 */
+  .hs { position:absolute; display:block; border-radius:10px; cursor:pointer;
+        touch-action:manipulation; }
+  .hs:hover { background:rgba(62,156,110,.10); outline:1px dashed rgba(62,156,110,.5); }
+  .hs:active { background:rgba(62,156,110,.18); }
+
+  /* 点击涟漪 + 提示条 */
+  .ripple { position:absolute; width:26px; height:26px; margin:-13px 0 0 -13px;
+            border-radius:50%; background:rgba(62,156,110,.45); pointer-events:none;
+            animation:rp .5s ease-out forwards; z-index:60; }
+  @keyframes rp { to { transform:scale(2.6); opacity:0; } }
+  .toast { position:absolute; left:50%; bottom:110px; transform:translate(-50%,10px);
+           background:rgba(15,26,21,.9); color:#dff0e7; font-size:12.5px; padding:8px 16px;
+           border-radius:999px; opacity:0; transition:.25s; pointer-events:none; z-index:70;
+           white-space:nowrap; }
+  .toast.show { opacity:1; transform:translate(-50%,0); }
+
+  /* 手机端：隐藏侧栏，等比缩放，底部圆点翻页 */
+  .dock { position:fixed; left:50%; bottom:14px; transform:translateX(-50%);
+          display:none; gap:9px; z-index:99; padding:8px 12px; border-radius:999px;
+          background:rgba(10,18,16,.62); backdrop-filter:blur(6px); }
+  .dock i { width:8px; height:8px; border-radius:99px; background:#6b7f75;
+            display:block; cursor:pointer; transition:.2s; }
+  .dock i.on { width:22px; background:#8fe0b5; }
+
   @media (max-width: 900px) {
-    body { display:block; overflow-x:hidden; }
+    body { display:block; overflow:hidden; }
     .side { display:none; }
-    .stage { padding:0; height:100vh; }
-    .phone { transform-origin: top center; }
-    .dock { position:fixed; left:50%; bottom:12px; transform:translateX(-50%);
-             display:flex; gap:9px; z-index:99; padding:8px 12px; border-radius:999px;
-             background:rgba(10,18,16,.62); backdrop-filter:blur(6px); }
-    .dock i { width:8px; height:8px; border-radius:99px; background:#6b7f75;
-               display:block; cursor:pointer; transition:.2s; }
-    .dock i.on { width:22px; background:#8fe0b5; }
+    .stage { padding:0; height:100vh; overflow:hidden; }
+    .dock { display:flex; }
   }
-  .notch { position:absolute; top:10px; left:50%; transform:translateX(-50%);
-            width:120px; height:26px; background:#000; border-radius:0 0 16px 16px; z-index:9; }
 </style>
 </head>
 <body>
 <aside class="side">
   <h1>校园闲置互助 · 原型</h1>
-  <p>5 个核心页面 + 1 个聊天窗口。<br>点高亮区域跳转，底部 tab 也能点。</p>
+  <p>6 屏可点：底栏 tab、卡片、按钮都能点。<br>点任意位置会亮一下，右上角有提示。</p>
   <button class="navbtn" data-to="01-home">1. 首页</button><button class="navbtn" data-to="02-post">2. 闲置发布</button><button class="navbtn" data-to="03-help">3. 互助广场</button><button class="navbtn" data-to="04-chat">4. 消息</button><button class="navbtn" data-to="04b-chatroom">5. 聊天窗口</button><button class="navbtn" data-to="05-mine">6. 个人中心</button>
-  <div class="tip">提示：鼠标移到图上会显示可点区域；按键盘 ← → 也能翻页。</div>
+  <div class="tip">可以点的地方：<b>分类入口 / 卡片 / 底栏 tab / 发布按钮 / 返回键</b><br>
+  手机上：底部小圆点翻页，页面内照常点。</div>
 </aside>
 <main class="stage">
   <div class="phone">
-    <div class="notch"></div>
-    <div class="viewport">
+    <div class="viewport" id="viewport">
       <section class="screen" id="01-home" data-title="首页">
 <div class="art"><svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844">
 <rect width="390" height="844" fill="#F6F8F6"/>
@@ -131,11 +158,14 @@
 <rect x="331.25" y="800" width="20" height="9" rx="5" fill="none" stroke="#93A29A" stroke-width="1.6"/>
 <text x="341.25" y="822" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#93A29A" font-weight="400" text-anchor="middle">我的</text>
 </svg></div>
-<a class="hs" data-go="post" style="left:306px;top:680px;width:52px;height:52px"></a>
-<a class="hs" data-go="home" style="left:0.0px;top:770px;width:97.5px;height:74px"></a>
-<a class="hs" data-go="help" style="left:97.5px;top:770px;width:97.5px;height:74px"></a>
-<a class="hs" data-go="chat" style="left:195.0px;top:770px;width:97.5px;height:74px"></a>
-<a class="hs" data-go="mine" style="left:292.5px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="04b-chatroom" style="left:20px;top:352px;width:350px;height:96px"></a>
+<a class="hs" data-go="04b-chatroom" style="left:20px;top:460px;width:350px;height:96px"></a>
+<a class="hs" data-go="04b-chatroom" style="left:20px;top:568px;width:350px;height:96px"></a>
+<a class="hs" data-go="02-post" style="left:306px;top:680px;width:52px;height:52px"></a>
+<a class="hs" data-go="01-home" style="left:0.0px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="03-help" style="left:97.5px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="04-chat" style="left:195.0px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="05-mine" style="left:292.5px;top:770px;width:97.5px;height:74px"></a>
 </section><section class="screen" id="02-post" data-title="闲置发布">
 <div class="art"><svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844">
 <rect width="390" height="844" fill="#F6F8F6"/>
@@ -194,7 +224,7 @@
 <text x="195.0" y="781.4" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="15" fill="#3E9C6E" font-weight="600" text-anchor="middle">发布（还需 1 张图）</text>
 </svg></div>
 <a class="hs" data-go="back" style="left:8px;top:52px;width:44px;height:44px"></a>
-<a class="hs" data-go="home" style="left:20px;top:750px;width:350px;height:52px"></a>
+<a class="hs" data-go="01-home" style="left:20px;top:750px;width:350px;height:52px"></a>
 </section><section class="screen" id="03-help" data-title="互助广场">
 <div class="art"><svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844">
 <rect width="390" height="844" fill="#F6F8F6"/>
@@ -262,10 +292,14 @@
 <rect x="331.25" y="800" width="20" height="9" rx="5" fill="none" stroke="#93A29A" stroke-width="1.6"/>
 <text x="341.25" y="822" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#93A29A" font-weight="400" text-anchor="middle">我的</text>
 </svg></div>
-<a class="hs" data-go="home" style="left:0.0px;top:770px;width:97.5px;height:74px"></a>
-<a class="hs" data-go="help" style="left:97.5px;top:770px;width:97.5px;height:74px"></a>
-<a class="hs" data-go="chat" style="left:195.0px;top:770px;width:97.5px;height:74px"></a>
-<a class="hs" data-go="mine" style="left:292.5px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="04-chat" style="left:20px;top:186px;width:350px;height:108px"></a>
+<a class="hs" data-go="04-chat" style="left:20px;top:306px;width:350px;height:108px"></a>
+<a class="hs" data-go="04-chat" style="left:20px;top:426px;width:350px;height:108px"></a>
+<a class="hs" data-go="04-chat" style="left:20px;top:546px;width:350px;height:108px"></a>
+<a class="hs" data-go="01-home" style="left:0.0px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="03-help" style="left:97.5px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="04-chat" style="left:195.0px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="05-mine" style="left:292.5px;top:770px;width:97.5px;height:74px"></a>
 </section><section class="screen" id="04-chat" data-title="消息">
 <div class="art"><svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844">
 <rect width="390" height="844" fill="#F6F8F6"/>
@@ -328,11 +362,11 @@
 <rect x="331.25" y="800" width="20" height="9" rx="5" fill="none" stroke="#93A29A" stroke-width="1.6"/>
 <text x="341.25" y="822" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#93A29A" font-weight="400" text-anchor="middle">我的</text>
 </svg></div>
-<a class="hs" data-go="chatroom" style="left:20px;top:112px;width:350px;height:76px"></a>
-<a class="hs" data-go="home" style="left:0.0px;top:770px;width:97.5px;height:74px"></a>
-<a class="hs" data-go="help" style="left:97.5px;top:770px;width:97.5px;height:74px"></a>
-<a class="hs" data-go="chat" style="left:195.0px;top:770px;width:97.5px;height:74px"></a>
-<a class="hs" data-go="mine" style="left:292.5px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="04b-chatroom" style="left:20px;top:112px;width:350px;height:76px"></a>
+<a class="hs" data-go="01-home" style="left:0.0px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="03-help" style="left:97.5px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="04-chat" style="left:195.0px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="05-mine" style="left:292.5px;top:770px;width:97.5px;height:74px"></a>
 </section><section class="screen" id="04b-chatroom" data-title="聊天窗口">
 <div class="art"><svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844">
 <rect width="390" height="844" fill="#F6F8F6"/>
@@ -389,10 +423,10 @@
 <text x="341.25" y="822" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#93A29A" font-weight="400" text-anchor="middle">我的</text>
 </svg></div>
 <a class="hs" data-go="back" style="left:8px;top:52px;width:44px;height:44px"></a>
-<a class="hs" data-go="home" style="left:0.0px;top:770px;width:97.5px;height:74px"></a>
-<a class="hs" data-go="help" style="left:97.5px;top:770px;width:97.5px;height:74px"></a>
-<a class="hs" data-go="chat" style="left:195.0px;top:770px;width:97.5px;height:74px"></a>
-<a class="hs" data-go="mine" style="left:292.5px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="01-home" style="left:0.0px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="03-help" style="left:97.5px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="04-chat" style="left:195.0px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="05-mine" style="left:292.5px;top:770px;width:97.5px;height:74px"></a>
 </section><section class="screen" id="05-mine" data-title="个人中心">
 <div class="art"><svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844">
 <rect width="390" height="844" fill="#F6F8F6"/>
@@ -451,77 +485,107 @@
 <rect x="331.25" y="800" width="20" height="9" rx="5" fill="none" stroke="#3E9C6E" stroke-width="1.6"/>
 <text x="341.25" y="822" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="11" fill="#3E9C6E" font-weight="600" text-anchor="middle">我的</text>
 </svg></div>
-<a class="hs" data-go="home" style="left:0.0px;top:770px;width:97.5px;height:74px"></a>
-<a class="hs" data-go="help" style="left:97.5px;top:770px;width:97.5px;height:74px"></a>
-<a class="hs" data-go="chat" style="left:195.0px;top:770px;width:97.5px;height:74px"></a>
-<a class="hs" data-go="mine" style="left:292.5px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="01-home" style="left:0.0px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="03-help" style="left:97.5px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="04-chat" style="left:195.0px;top:770px;width:97.5px;height:74px"></a>
+<a class="hs" data-go="05-mine" style="left:292.5px;top:770px;width:97.5px;height:74px"></a>
 </section>
+      <div class="toast" id="toast"></div>
     </div>
   </div>
 </main>
 <div class="dock" id="dock"></div>
+
 <script>
   const screens = [...document.querySelectorAll('.screen')];
   const navbtns = [...document.querySelectorAll('.navbtn')];
+  const dock = document.getElementById('dock');
+  const toast = document.getElementById('toast');
+  const viewport = document.getElementById('viewport');
+  const LABEL = {};
+  screens.forEach(s => { LABEL[s.id] = s.dataset.title; });
   let idx = 0;
-  function show(name) {
+
+  function flash(x, y) {
+    const r = document.createElement('div');
+    r.className = 'ripple';
+    r.style.left = x + 'px';
+    r.style.top = y + 'px';
+    viewport.appendChild(r);
+    setTimeout(() => r.remove(), 520);
+  }
+
+  function toastShow(text) {
+    toast.textContent = text;
+    toast.classList.add('show');
+    clearTimeout(toastShow._t);
+    toastShow._t = setTimeout(() => toast.classList.remove('show'), 1200);
+  }
+
+  function show(name, opts) {
     let i = screens.findIndex(s => s.id === name);
-    if (i < 0) { i = 0; }
+    if (i < 0) i = 0;
     screens.forEach((s, k) => s.classList.toggle('on', k === i));
     navbtns.forEach((b, k) => b.classList.toggle('on', k === i));
+    [...dock.children].forEach(d => d.classList.toggle('on', d.dataset.to === name));
     idx = i;
+    if (!opts || !opts.silent) toastShow('→ ' + (LABEL[name] || name));
   }
+
+  // 点高亮区跳转
   document.querySelectorAll('.hs').forEach(h => {
     h.addEventListener('click', e => {
       e.stopPropagation();
       const go = h.dataset.go;
-      if (go === 'back') { history.length > 1 ? history.back() : show('01-home'); return; }
+      const box = viewport.getBoundingClientRect();
+      flash(e.clientX - box.left, e.clientY - box.top);
+      if (go === 'back') { show('01-home'); return; }
       show(go);
     });
   });
-  navbtns.forEach(b => b.addEventListener('click', () => show(b.dataset.to)));
-  document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight') show(screens[Math.min(idx + 1, screens.length - 1)].id);
-    if (e.key === 'ArrowLeft') show(screens[Math.max(idx - 1, 0)].id);
-  });
-  show('01-home');
 
-  // ── 手机端：侧栏隐藏时用底部圆点翻页，并把手机框等比缩放到屏幕宽
-  const dock = document.getElementById('dock');
-  screens.forEach((s, i) => {
+  // 点画面其它地方也给反馈（证明整页有响应，而不是死的）
+  viewport.addEventListener('click', e => {
+    const box = viewport.getBoundingClientRect();
+    flash(e.clientX - box.left, e.clientY - box.top);
+  });
+
+  navbtns.forEach(b => b.addEventListener('click', () => show(b.dataset.to)));
+
+  screens.forEach(s => {
     const d = document.createElement('i');
     d.dataset.to = s.id;
     d.title = s.dataset.title;
     d.addEventListener('click', () => show(s.id));
     dock.appendChild(d);
   });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') show(screens[Math.min(idx + 1, screens.length - 1)].id);
+    if (e.key === 'ArrowLeft') show(screens[Math.max(idx - 1, 0)].id);
+  });
+
   function fit() {
     const phone = document.querySelector('.phone');
     const stage = document.querySelector('.stage');
-    if (!phone) return;
     if (window.innerWidth <= 900) {
-      const scale = Math.min(1, (window.innerWidth - 6) / 410);
+      const scale = Math.min(1, (window.innerWidth - 4) / 390, (window.innerHeight - 30) / 844);
+      phone.style.transformOrigin = 'top center';
       phone.style.transform = 'scale(' + scale + ')';
       stage.style.height = (844 * scale + 8) + 'px';
-      phone.style.marginTop = '4px';
-      dock.style.display = 'flex';
+      stage.style.alignItems = 'flex-start';
+      stage.style.paddingTop = '4px';
     } else {
       phone.style.transform = 'none';
       stage.style.height = '';
-      dock.style.display = 'none';
+      stage.style.alignItems = 'center';
+      stage.style.paddingTop = '';
     }
   }
   window.addEventListener('resize', fit);
+  window.addEventListener('orientationchange', fit);
   fit();
-
-  // 圆点跟随当前屏
-  const _show = show;
-  show = function (name) {
-    _show(name);
-    [...dock.children].forEach(d => d.classList.toggle('on', d.dataset.to === name));
-  };
-  _show('01-home');
-  [...dock.children][0].classList.add('on');
+  show('01-home', { silent: true });
 </script>
 </body>
 </html>
